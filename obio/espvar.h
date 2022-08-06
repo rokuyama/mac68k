@@ -46,7 +46,9 @@ struct esp_softc {
 
 	/* for avdma */
 	int		sc_rset;
-	int		sc_pio;
+	int		sc_ibuf_used;
+	uint8_t		*sc_obuf;
+	uint8_t		*sc_ibuf;
 	bus_dma_tag_t	sc_dmat;
 	bus_dmamap_t	sc_dmap;
 };
