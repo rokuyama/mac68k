@@ -397,7 +397,11 @@ dafb_dreq:	bst = oa->oa_tag;
 		}
 	}
 
-#if 0 /* XXXRO does not work. */
+#if 0
+	/*
+	 * This degrades performance; FIFO is better than bounce DMA for
+	 * short SCSI commands and their responses.
+	 */
 	if (avdma) {
 		/* Turn on target selection using the `DMA' method */
 		sc->sc_features |= NCR_F_DMASELECT;
