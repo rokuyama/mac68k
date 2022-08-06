@@ -264,6 +264,7 @@ dafb_dreq:	bst = oa->oa_tag;
 			sc->sc_freq = 16500000;
 			break;
 		case 0x18000:
+			/* From Quadra 840AV Service Source */
 			sc->sc_freq = 20000000;
 			break;
 		default:
