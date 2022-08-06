@@ -260,6 +260,7 @@ dafb_dreq:	bst = oa->oa_tag;
 		irq_mask = V2IF_SCSIIRQ;
 		switch (reg_offset) {
 		case 0x10000:
+			/* From the Q650 developer's note */
 			sc->sc_freq = 16500000;
 			break;
 		case 0x18000:
