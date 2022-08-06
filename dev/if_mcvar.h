@@ -45,7 +45,12 @@
 				    (sc)->sc_regh, MACE_REG(reg), (val)))
 
 #ifndef	MC_RXDMABUFS
-#define	MC_RXDMABUFS	4
+/*
+ * XXX
+ * This requires 2 contigous pages, but reduces RX FIFO overflow to
+ * some extent. Linux driver also uses 8 buffers.
+ */
+#define	MC_RXDMABUFS	8
 #endif
 #if (MC_RXDMABUFS < 2)
 #error Must have at least two buffers for DMA!
