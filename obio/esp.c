@@ -1038,6 +1038,21 @@ esp_av_dma_intr(struct ncr53c9x_softc *sc)
 		return 0;
 	}
 
+#if 0
+	/*
+	 * XXXRO dead code
+	 * Left unremoved for reference how to use wait_psc_dma().
+	 */
+	if ((sc->sc_espintr & NCRINTR_BS) && (sc->sc_espstat & NCRSTAT_TC)) {
+		/* Wait for engine to finish the transfer */
+		wait_psc_dma(PSC_DMA_CHANNEL_SCSI, esc->sc_rset, &resid);
+#  if DEBUG
+		printf("[av_dma_intr: DMA %s done]\n", esc->sc_datain ?
+		    "read" : "write");
+#  endif
+	}
+#endif
+
 	/* Halt the DMA engine */
 	stop_psc_dma(PSC_DMA_CHANNEL_SCSI, esc->sc_rset, &resid,
 	    esc->sc_datain);
