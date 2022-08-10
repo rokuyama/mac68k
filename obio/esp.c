@@ -1110,6 +1110,31 @@ esp_av_dma_setup(struct ncr53c9x_softc *sc, uint8_t **addr, size_t *len,
 		return 0;
 	}
 
+	/*
+	 * According to analysis by Michael Zucca, PSC seems to
+	 * require that DMA buffer is
+	 *   (1) aligned to 16-byte boundares, and
+	 *   (2) multiple of 16 in size.
+	 * If the buffer does not satisfy these constraints, use
+	 * ``bounce'' buffer instead.
+	 *
+	 * Note that this does not hurt I/O performance at all;
+	 * bounce buffer is not used by MI routines for data
+	 * transfer for file system nor swap operations. It is
+	 * used only
+	 *    (a) when disk is attached, and
+	 *    (b) for special utilities like fsck(8) or fdisk(8)
+	 * as far as we can tell.
+	 *
+	 * Also note that PSC seems to allow buffer which does not
+	 * satisfy constraint (2) above. However, we use bounce
+	 * buffer for safety. This cannot affect performance anyway.
+	 *
+	 * Further, we prefer bounce buffer over PIO:
+	 *    (A) NCR53C94 seems not to allow partial PIO.
+	 *	  (port-mac68k/56131)
+	 *    (B) Synchronous transfer fails with PIO.
+	 */
 	if (__predict_false(*dmasize % 16 || (uintptr_t)*addr & 0xf)) {
 #if 1 /* XXXRO */
 		printf("[avdma bounce DMA %s addr %p size %zu]\n",
