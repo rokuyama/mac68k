@@ -363,9 +363,9 @@ dafb_dreq:	bst = oa->oa_tag;
 		esc->sc_rset = 0;
 		esc->sc_dmat = oa->oa_dmat;
 
-		if (bus_dmamap_create(esc->sc_dmat, sc->sc_maxxfer,
-		    sc->sc_maxxfer / NBPG + 1, sc->sc_maxxfer, 0,
-		    BUS_DMA_WAITOK | BUS_DMA_ALLOCNOW, &esc->sc_dmap)) {
+		if (bus_dmamap_create(esc->sc_dmat, sc->sc_maxxfer, 1,
+		    sc->sc_maxxfer, 0, BUS_DMA_WAITOK | BUS_DMA_ALLOCNOW,
+		    &esc->sc_dmap)) {
 			printf("failed to create DMA map.\n");
 			return;
 		}
