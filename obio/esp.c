@@ -299,14 +299,19 @@ dafb_dreq:	bst = oa->oa_tag;
 	 */
 	sc->sc_cfg1 = sc->sc_id; /* | NCRCFG1_PARENB; */
 	sc->sc_cfg2 = NCRCFG2_SCSI2;
-	if (avdma) {
-		sc->sc_cfg1 |= NCRCFG1_PARENB;
-		sc->sc_cfg2 |= NCRCFG2_FE;
-		sc->sc_cfg3 = NCRCFG3_CDB;
-		sc->sc_rev = NCR_VARIANT_NCR53C94;
-	} else {
-		sc->sc_cfg3 = 0;
-		sc->sc_rev = NCR_VARIANT_NCR53C96;
+	sc->sc_cfg3 = 0;
+	sc->sc_rev = NCR_VARIANT_NCR53C96;
+	if (oa->oa_addr == 0) {
+		switch (reg_offset) {
+		case 0x18000:
+			sc->sc_rev = NCR_VARIANT_NCR53C94;
+			/* FALLTHROUGH */
+		case 0x10000:
+			sc->sc_cfg1 |= NCRCFG1_PARENB;
+			sc->sc_cfg2 |= NCRCFG2_FE;
+			sc->sc_cfg3 |= NCRCFG3_CDB;
+			break;
+		}
 	}
 
 	/*
