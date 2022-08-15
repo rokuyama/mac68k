@@ -1,4 +1,4 @@
-/*	$NetBSD: esp.c,v 1.60 2021/02/22 05:23:36 rin Exp $	*/
+/*	$NetBSD: esp.c,v 1.64 2022/08/15 12:16:25 rin Exp $	*/
 
 /*
  * Copyright (c) 1997 Jason R. Thorpe.
@@ -81,7 +81,7 @@
  */
 
 #include <sys/cdefs.h>
-__KERNEL_RCSID(0, "$NetBSD: esp.c,v 1.60 2021/02/22 05:23:36 rin Exp $");
+__KERNEL_RCSID(0, "$NetBSD: esp.c,v 1.64 2022/08/15 12:16:25 rin Exp $");
 
 #include <sys/types.h>
 #include <sys/param.h>

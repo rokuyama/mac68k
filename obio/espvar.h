@@ -1,4 +1,4 @@
-/*	$NetBSD: espvar.h,v 1.9 2019/07/23 15:19:07 rin Exp $	*/
+/*	$NetBSD: espvar.h,v 1.10 2022/08/15 12:16:25 rin Exp $	*/
 
 /*
  * Copyright (c) 1997 Allen Briggs.
